@@ -176,7 +176,7 @@ const waterGeometry = new THREE.CircleGeometry(10000, 128);
 const water = new Water(waterGeometry, {
   textureWidth: 512,
   textureHeight: 512,
-  waterNormals: new THREE.TextureLoader().load('/images/waternormals.jpg', texture => {
+  waterNormals: new THREE.TextureLoader().load('/images/waternormals.jpg', (texture) => {
     texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
   }),
   sunDirection: new THREE.Vector3(),
@@ -204,8 +204,9 @@ const phi = THREE.MathUtils.degToRad(88);
 const theta = THREE.MathUtils.degToRad(180);
 // 从球面坐标设置三维向量
 sun.setFromSphericalCoords(1, phi, theta);
+// 创建天空折射太阳效果
 sky.material.uniforms['sunPosition'].value.copy(sun);
-// 创建水面折射效果
+// 创建水面折射太阳效果
 water.material.uniforms['sunDirection'].value.copy(sun).normalize();
 // 把创建好的天空当作场景的环境
 // @ts-ignore
@@ -221,7 +222,7 @@ const manager = new THREE.LoadingManager();
  */
 const loader = new GLTFLoader(manager);
 // 开始加载3D模型对象
-loader.load('/images/island.glb', mesh => {
+loader.load('/images/island.glb', (mesh) => {
   // 加载完成触发回调
   // 拿到模型实例对象
   islandMesh = mesh;
